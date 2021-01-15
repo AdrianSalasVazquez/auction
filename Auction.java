@@ -99,4 +99,15 @@ public class Auction
             return null;
         }
     }
+    
+    public void close(){
+        for(Lot lot : lots) {
+            if (lot.getHighestBid() != null){
+                System.out.println(lot.getNumber() + ": " + lot.getDescription() + " | Lote vendido a " + lot.getHighestBid().getBidder().getName() + " por " + lot.getHighestBid().getValue() + " euros.");
+            }
+            else {
+                System.out.println(lot.getNumber() + ": " + lot.getDescription() + " | Este lote no se ha vendido.");
+            }
+        }
+    }
 }
