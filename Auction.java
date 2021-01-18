@@ -76,28 +76,37 @@ public class Auction
      * if a lot with this number does not exist.
      * @param lotNumber The number of the lot to return.
      */
-    public Lot getLot(int lotNumber)
-    {
+    public Lot getLot(int lotNumber) {
+        Lot finalLot = null;
         if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
-            // The number seems to be reasonable.
-            Lot selectedLot = lots.get(lotNumber - 1);
-            // Include a confidence check to be sure we have the
-            // right lot.
-            if(selectedLot.getNumber() != lotNumber) {
-                System.out.println("Internal error: Lot number " +
-                    selectedLot.getNumber() +
-                    " was returned instead of " +
-                    lotNumber);
-                // Don't return an invalid lot.
-                selectedLot = null;
+            int indice = 0;
+            boolean iguales = false;
+            while (indice < lots.size() && !iguales) {
+                if (lots.get(indice).getNumber() == lotNumber){
+                    iguales = true;
+                }
+                else {
+                    indice++;
+                }
             }
-            return selectedLot;
+            if (iguales){
+                Lot selectedLot = lots.get(indice);
+                finalLot = selectedLot;
+            }
+            else {
+                finalLot = null;
+            }
         }
         else {
-            System.out.println("Lot number: " + lotNumber +
-                " does not exist.");
-            return null;
+            finalLot = null;
         }
+        return finalLot;
+    }
+
+    public Lot removeLot(int number){
+        Lot lotRemove = getLot(number);
+        lots.remove(lotRemove);
+        return lotRemove;
     }
 
     public void close(){
@@ -110,7 +119,7 @@ public class Auction
             }
         }
     }
-    
+
     public ArrayList<Lot> getUnsold(){
         ArrayList<Lot> unsoldLots = new ArrayList<Lot>();
         for(Lot lot : lots) {
