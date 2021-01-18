@@ -89,16 +89,9 @@ public class Auction
                     indice++;
                 }
             }
-            if (iguales){
-                Lot selectedLot = lots.get(indice);
-                finalLot = selectedLot;
+            if (iguales) {
+                finalLot = lots.get(indice);
             }
-            else {
-                finalLot = null;
-            }
-        }
-        else {
-            finalLot = null;
         }
         return finalLot;
     }
