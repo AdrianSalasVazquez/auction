@@ -81,16 +81,13 @@ public class Auction
         if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
             int indice = 0;
             boolean iguales = false;
-            while (indice < lots.size() && !iguales) {
+            while (indice < lots.size() && finalLot == null) {
                 if (lots.get(indice).getNumber() == lotNumber){
-                    iguales = true;
+                    finalLot = lots.get(indice);
                 }
                 else {
                     indice++;
                 }
-            }
-            if (iguales) {
-                finalLot = lots.get(indice);
             }
         }
         return finalLot;
